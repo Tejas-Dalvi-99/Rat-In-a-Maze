@@ -1,8 +1,6 @@
 #include <iostream>
-#include <conio.h>
 #include <windows.h>
 #include <stdlib.h>
-#include <unistd.h>
 using namespace std;
 
 bool Rat_In_RightPath(int **arr, int i, int j, int n)
@@ -44,12 +42,12 @@ bool ratInMaze(int **arr, int i, int j, int n, int **SolutionMatrix)
 int main()
 {
 
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
     int n, sec1 = 1;
     system("CLS");
+    SetConsoleTextAttribute(h, 1);
     cout << "Enter Size of The Matrix : ";
     cin >> n;
-
-    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
     int **arr = new int *[n];
     for (int i = 0; i < n; i++)
@@ -57,10 +55,10 @@ int main()
         arr[i] = new int[n];
     }
 
-    cout << "Enter the Matrix Path : " << endl;
-
+    cout << "\n\nEnter the Matrix Path : "<<endl;
     for (int i = 0; i < n; i++)
     {
+        cout<<("\t\t\t "); 
         for (int j = 0; j < n; j++)
         {
             cin >> arr[i][j];
@@ -76,17 +74,22 @@ int main()
             SolutionMatrix[i][j] = 0;
         }
     }
-
-    cout << "\t\t\t\t\t!<---This Might be One Path--->!"
-         << "\n\n"
+    SetConsoleTextAttribute(h, 14);
+    cout << "\t\t\t\t       ====================================";
+    SetConsoleTextAttribute(h , 11); 
+    cout << "\n\t\t\t\t\t!<--- This Might be One Path --->!\n";
+    SetConsoleTextAttribute(h , 14); 
+    cout << "\t\t\t\t       ====================================\n";
+    cout << "\n\n"
          << endl;
-
+    SetConsoleTextAttribute(h , 14);      
+    cout << "\t\t\t\t       ------------------------------------\n";
     if (ratInMaze(arr, 0, 0, n, SolutionMatrix))
     {
 
         for (int i = 0; i < n; i++)
         {
-            cout << "\t\t\t\t\t";
+            cout << "\t\t\t\t\t ";
             for (int j = 0; j < n; j++)
             {
                 if (SolutionMatrix[i][j] == 1)
@@ -99,15 +102,22 @@ int main()
                     SetConsoleTextAttribute(h, 12);
                     cout << SolutionMatrix[i][j] << "\t";
                 }
-                Sleep(200); 
+                Sleep(600);
+            }
+            if (i == n - 1)
+            {
+                SetConsoleTextAttribute(h, 14);
+                cout << "\n";
+                cout << "\t\t\t\t       ------------------------------------\n";
             }
             cout << endl
                  << endl
                  << endl;
         }
     }
-    else{
-        cout<< "No Path Found "; 
+    else
+    {
+        cout << "No Path Found ";
     }
     SetConsoleTextAttribute(h, 7);
     return 0;
